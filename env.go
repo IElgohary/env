@@ -73,8 +73,9 @@ func (c *Configs) Load() {
 	var data map[string]map[string]interface{}
 
 	// get environment value
-	err = yaml.Unmarshal(content, &env)
-	if err == nil {
+	yaml.Unmarshal(content, &env)
+	// if the env field not set, use default mode.
+	if env.Env == "" {
 		c.Mode = DefaultMode
 	} else {
 		// set environment to the struct
