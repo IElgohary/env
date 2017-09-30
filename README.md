@@ -1,6 +1,6 @@
 # Env
 For reading env variables from a yaml file.
-
+it register all values to system environment variable and add a prefix to it.
 # Installing...
 1. Download and install it:
 
