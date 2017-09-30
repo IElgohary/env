@@ -58,7 +58,7 @@ package main
 import "github.com/Lafriakh/env"
 
 func main() {
-    // init env with default configs
+    // init from custome file path
     env.SetPAL("custom/file/path.yaml")
     // get string value
     env.GetString("SITE_URL") // env.dev
