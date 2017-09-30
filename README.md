@@ -1,4 +1,4 @@
-# Kira Env
+# Env
 For reading env variables from a yaml file.
 
 # Installing...
