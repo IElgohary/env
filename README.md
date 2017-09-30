@@ -5,13 +5,13 @@ For reading env variables from a yaml file.
 1. Download and install it:
 
 ```sh
-$ go get -u github.com/Lafriakh/kira/env
+$ go get -u github.com/Lafriakh/env
 ```
 
 2. Import it in your code:
 
 ```go
-import "github.com/Lafriakh/kira/env"
+import "github.com/Lafriakh/env"
 ```
 
 # Customize
@@ -39,7 +39,7 @@ test:
 1. default usage
 ```go
 package main
-import "github.com/Lafriakh/kira/env"
+import "github.com/Lafriakh/env"
 
 func main() {
     // init env with default configs
@@ -55,7 +55,7 @@ func main() {
 2. customize usage
 ```go
 package main
-import "github.com/Lafriakh/kira/env"
+import "github.com/Lafriakh/env"
 
 func main() {
     // init env with default configs
