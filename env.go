@@ -3,7 +3,9 @@ package env
 import (
 	"io/ioutil"
 	"log"
+	"os"
 	"strconv"
+	"strings"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -19,6 +21,9 @@ var DefaultMode = Development
 
 // DefaultPath ...
 var DefaultPath = "config.yaml"
+
+// DefaultPrefix this will used when site values in os.Env()
+var DefaultPrefix = "ENV_"
 
 // Config to store all configs
 var Config *Configs
@@ -89,6 +94,19 @@ func (c *Configs) Load() {
 	Config.Configs[Development] = data["development"]
 	Config.Configs[Production] = data["production"]
 	Config.Configs[Test] = data["test"]
+
+	// add all values to system env
+	for _, mode := range []string{Development, Production, Test} {
+		// convert mode to upper case
+		modeToUpper := strings.ToUpper(mode)
+		// loop throw mode's
+		for key := range Config.Configs[mode] {
+			envKey := DefaultPrefix + modeToUpper + "_" + key
+			envValue := GetString(key)
+			// set to os Env
+			os.Setenv(envKey, envValue)
+		}
+	}
 }
 
 // SetPath to set a custom path for config file
@@ -109,6 +127,8 @@ func (c *Configs) GetEnv(env string) map[string]interface{} {
 // GetString ...
 func (c *Configs) GetString(key string) string {
 	switch c.Configs[c.Mode][key].(type) {
+	case bool:
+		return strconv.FormatBool(c.Configs[c.Mode][key].(bool))
 	case int:
 		return strconv.Itoa(c.Configs[c.Mode][key].(int))
 	default:
@@ -168,4 +188,10 @@ func GetInt(key string) int {
 // GetBool return an integer config
 func GetBool(key string) bool {
 	return Config.GetBool(key)
+}
+
+// Getenv return system os env
+func Getenv(key string) string {
+	prefix := DefaultPrefix + strings.ToUpper(DefaultMode) + "_" + key
+	return os.Getenv(prefix)
 }
