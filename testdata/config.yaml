@@ -1,0 +1,21 @@
+env: production
+production:
+  # site
+  SITE_NAME: Micro
+  SITE_URL: 127.0.0.1:1994/
+  # Database
+  DB_CONNECTION: mongodb
+  DB_HOST: localhost
+  DB_PORT: "3306"
+  DB_DATABASE: kira
+  DB_USERNAME: admin
+  DB_PASSWORD: Lrachid
+  # server
+  SERVER_PORT: 1994
+  SERVER_HOST: 127.0.0.1
+  SERVER_REQUEST_ID: X-Request-Id
+  # views
+  VIEWS_PREFIX: app/views/
+
+development:
+  SITE_NAME: rachid dev
