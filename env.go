@@ -73,9 +73,13 @@ func (c *Configs) Load() {
 	var data map[string]map[string]interface{}
 
 	// get environment value
-	yaml.Unmarshal(content, &env)
-	// set environment to the struct
-	c.Mode = env.Env
+	err = yaml.Unmarshal(content, &env)
+	if err == nil {
+		c.Mode = DefaultMode
+	} else {
+		// set environment to the struct
+		c.Mode = env.Env
+	}
 
 	// Unmarshal yaml data
 	yaml.Unmarshal(content, &data)
