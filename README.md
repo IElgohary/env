@@ -73,3 +73,18 @@ func main() {
     env.GetString("SITE_URL") // env.dev
 }
 ```
+3. Get from system environment
+
+By default `env` get values from config file. when you retrieves value by `env.GetString()...` it get it from config file.
+to retrieves value from system use this:
+```go
+package main
+import "github.com/Lafriakh/env"
+
+func main() {
+    // init env with default configs
+    env.New()
+    // this always return string type
+    env.Getenv("SITE_URL") // env.dev
+}
+```
