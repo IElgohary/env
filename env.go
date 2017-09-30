@@ -131,6 +131,20 @@ func (c *Configs) GetInt(key string) int {
 	}
 }
 
+// GetBool ...
+func (c *Configs) GetBool(key string) bool {
+	switch c.Configs[c.Mode][key].(type) {
+	case string:
+		boolean, err := strconv.ParseBool(c.Configs[c.Mode][key].(string))
+		if err != nil {
+			panic(err)
+		}
+		return boolean
+	default:
+		return c.Configs[c.Mode][key].(bool)
+	}
+}
+
 // Get Config
 func Get(key string) interface{} {
 	return Config.Get(key)
@@ -149,4 +163,9 @@ func GetString(key string) string {
 // GetInt return an integer config
 func GetInt(key string) int {
 	return Config.GetInt(key)
+}
+
+// GetBool return an integer config
+func GetBool(key string) bool {
+	return Config.GetBool(key)
 }

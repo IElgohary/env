@@ -1,6 +1,7 @@
 package env
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -25,6 +26,15 @@ func TestGetInt(t *testing.T) {
 
 	if GetInt("DB_PORT") != 3306 {
 		t.Fatal("value is not an integer")
+	}
+}
+func TestGetBool(t *testing.T) {
+	SetPAL("testdata/config.yaml")
+
+	v := reflect.TypeOf(GetBool("SERVER_HTTPS"))
+
+	if v.Kind() != reflect.Bool {
+		t.Fatal("value is not an boolean")
 	}
 }
 

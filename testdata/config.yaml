@@ -11,6 +11,7 @@ production:
   DB_USERNAME: admin
   DB_PASSWORD: Lrachid
   # server
+  SERVER_HTTPS: false
   SERVER_PORT: 1994
   SERVER_HOST: 127.0.0.1
   SERVER_REQUEST_ID: X-Request-Id
