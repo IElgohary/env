@@ -6,7 +6,7 @@ import (
 )
 
 func TestGet(t *testing.T) {
-	SetPAL("testdata/config.yaml")
+	SetPAL("testdata/data.yaml")
 
 	if Config.Get("SITE_NAME") != "Micro" {
 		t.Fatal("error")
@@ -14,7 +14,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestGetString(t *testing.T) {
-	SetPAL("testdata/config.yaml")
+	SetPAL("testdata/data.yaml")
 
 	if GetString("DB_PORT") != "3306" {
 		t.Fatal("value is not a string")
@@ -22,14 +22,14 @@ func TestGetString(t *testing.T) {
 }
 
 func TestGetInt(t *testing.T) {
-	SetPAL("testdata/config.yaml")
+	SetPAL("testdata/data.yaml")
 
 	if GetInt("DB_PORT") != 3306 {
 		t.Fatal("value is not an integer")
 	}
 }
 func TestGetBool(t *testing.T) {
-	SetPAL("testdata/config.yaml")
+	SetPAL("testdata/data.yaml")
 
 	v := reflect.TypeOf(GetBool("SERVER_HTTPS"))
 
@@ -39,14 +39,14 @@ func TestGetBool(t *testing.T) {
 }
 
 func TestMode(t *testing.T) {
-	SetPAL("testdata/config.yaml")
+	SetPAL("testdata/data.yaml")
 
 	if Config.Mode != "development" {
 		t.Fatalf("env mode is not development, is: %v", Config.Mode)
 	}
 }
 func TestNew(t *testing.T) {
-	DefaultPath = "testdata/config.yaml"
+	DefaultPath = "testdata/data.yaml"
 	New()
 
 	if GetInt("DB_PORT") != 3306 {
@@ -54,7 +54,18 @@ func TestNew(t *testing.T) {
 	}
 }
 func TestGetSpecificEnvironmentConfigs(t *testing.T) {
-	SetPAL("testdata/config.yaml")
+	SetPAL("testdata/data.yaml")
 	GetEnv(Development)
 	// TODO
+}
+
+func TestEmptyField(t *testing.T) {
+	DefaultPath = "testdata/data.yaml"
+	New()
+
+	value := GetString("DB_USERNAME")
+
+	if value != "" {
+		t.Fatalf("Get string not empty is: %v", value)
+	}
 }

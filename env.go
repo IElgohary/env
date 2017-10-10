@@ -131,6 +131,8 @@ func (c *Configs) GetString(key string) string {
 		return strconv.FormatBool(c.Configs[c.Mode][key].(bool))
 	case int:
 		return strconv.Itoa(c.Configs[c.Mode][key].(int))
+	case nil:
+		return ""
 	default:
 		return c.Configs[c.Mode][key].(string)
 	}
@@ -142,10 +144,11 @@ func (c *Configs) GetInt(key string) int {
 	case string:
 		integer, err := strconv.Atoi(c.Configs[c.Mode][key].(string))
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
-
 		return integer
+	case nil:
+		return 0
 	default:
 		return c.Configs[c.Mode][key].(int)
 	}
@@ -157,9 +160,11 @@ func (c *Configs) GetBool(key string) bool {
 	case string:
 		boolean, err := strconv.ParseBool(c.Configs[c.Mode][key].(string))
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 		return boolean
+	case nil:
+		return false
 	default:
 		return c.Configs[c.Mode][key].(bool)
 	}
